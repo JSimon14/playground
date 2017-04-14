@@ -14,7 +14,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(params[:product])
+    @product = Product.new(product_params)
     if @product.save
       flash[:notice] = "Successfully created product."
       redirect_to @product
@@ -29,7 +29,7 @@ class ProductsController < ApplicationController
 
   def update
     @product = Product.find(params[:id])
-    if @product.update_attributes(params[:product])
+    if @product.update_attributes(product_params)
       flash[:notice] = "Successfully updated product."
       redirect_to @product
     else
@@ -45,6 +45,10 @@ class ProductsController < ApplicationController
   end
 
   private
+
+  def product_params
+    params.require(:product).permit(:name, :created_at, :updated_at, :price, :released_at)
+  end
 
   def sort_column
     Product.column_names.include?(params[:sort]) ? params[:sort] : "name"
