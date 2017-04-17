@@ -8,20 +8,8 @@
       <%= submit_tag "Search", :name => nil %>
     </p>
 <% end %>
-<table class="pretty">
-  <tr>
-    <th><%= sortable "name" %></th>
-    <th><%= sortable "price" %></th>
-    <th><%= sortable "released_at", "Released" %></th>
-  </tr>
-  <% for product in @products %>
-    <tr>
-      <td><%= product.name %></td>
-      <td class="price"><%= number_to_currency(product.price) %></td>
-      <td><%= product.released_at.strftime("%B %e, %Y") %></td>
-    </tr>
-  <% end %>
-</table>
+
+<div id="products"><%= render 'products' %></div>
 
 <%= will_paginate @products %>
 <p><%= link_to "New Product", new_product_path %></p>
